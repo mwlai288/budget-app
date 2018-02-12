@@ -8,17 +8,11 @@ class ItemForm extends Component {
     const priceInput = this.refs.price.value.trim();
     const amountAdded = this.refs.saved.value.trim();
     if (itemInput !== '' && priceInput !== '') {
-      Items.insert({
-        goods: itemInput,
-        price: priceInput,
-        amountAdded: amountAdded,
-        amountLeft: priceInput - amountAdded,
-        complete: false,
-        createdAt: new Date()
+      Meteor.call('addGoods', itemInput, priceInput, amountAdded, () => {
+        this.refs.goods.value = '';
+        this.refs.price.value = '';
       });
     }
-    this.refs.goods.value = '';
-    this.refs.price.value = '';
   };
   render() {
     return (
@@ -30,9 +24,9 @@ class ItemForm extends Component {
             placeholder="what do you want to buy?"
           />
           <br />
-          <input type="text" ref="price" placeholder="how much is it?" />
+          <input type="integer" ref="price" placeholder="how much is it?" />
           <br />
-          <input type="text" ref="saved" placeholder="how much you saved?" />
+          <input type="integer" ref="saved" placeholder="how much you saved?" />
           <br />
           <button onSubmit={this.addItem}>Add item</button>
         </form>

@@ -20,6 +20,7 @@ class App extends Component {
 }
 
 export default withTracker(() => {
+  let itemsSub = Meteor.subscribe('allItems');
   return {
     items: Items.find({}).fetch()
   };
