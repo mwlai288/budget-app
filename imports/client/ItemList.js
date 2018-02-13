@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 class ItemList extends Component {
   checkBox = () => {
@@ -13,13 +14,12 @@ class ItemList extends Component {
   };
   addMoney = e => {
     e.preventDefault();
-    console.log(this.refs.saved.value);
     const amountAdded = this.refs.saved.value.trim();
     Meteor.call('addMoneyToBudget', this.props.item._id, amountAdded);
   };
   render() {
     return (
-      <div>
+      <ItemBorder>
         <input
           type="checkbox"
           readOnly={true}
@@ -34,13 +34,17 @@ class ItemList extends Component {
         <br />
         Left: ${this.props.item.amountLeft}
         <form onSubmit={this.addMoney}>
-          <input type="integer" ref="saved" placeholder="add money" />
+          <input type="number" step=".01" ref="saved" placeholder="add money" />
           <button onSubmit={this.addMoney}>Add Money</button>
         </form>
         <button onClick={this.deleteItem}>&times;</button>
-      </div>
+      </ItemBorder>
     );
   }
 }
 
 export default ItemList;
+
+const ItemBorder = styled.div`
+  border: 1px solid black;
+`;
