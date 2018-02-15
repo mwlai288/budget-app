@@ -6,8 +6,10 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.36",
+    "animate.css": "^3.6.1",
     "meteor-node-stubs": "^0.3.2",
     "react": "^16.2.0",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-addons-pure-render-mixin": "^15.6.2",
     "react-dom": "^16.2.0"
   }

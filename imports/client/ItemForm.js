@@ -9,11 +9,26 @@ class ItemForm extends Component {
     const priceInput = this.refs.price.value.trim();
     const amountAdded = this.refs.saved.value.trim();
     if (itemInput !== '' && priceInput !== '' && amountAdded !== '') {
-      Meteor.call('addGoods', itemInput, priceInput, amountAdded, () => {
-        this.refs.goods.value = '';
-        this.refs.price.value = '';
-        this.refs.saved.value = '';
-      });
+      Meteor.call(
+        'addGoods',
+        itemInput,
+        priceInput,
+        amountAdded,
+        (error, data) => {
+          if (error) {
+            Bert.alert(
+              'Please SignUp or Login before submitting.',
+              'warning',
+              'fixed-top',
+              'fa-warning'
+            );
+          } else {
+            this.refs.goods.value = '';
+            this.refs.price.value = '';
+            this.refs.saved.value = '';
+          }
+        }
+      );
     }
   };
   render() {
@@ -40,7 +55,5 @@ const FormStyle = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  -moz-box-shadow: 3px 3px 5px 6px #ccc;
-  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
-  box-shadow: 3px 3px 5px 6px #808000;
+  box-shadow: 5px 5px 8px #85bb65;
 `;

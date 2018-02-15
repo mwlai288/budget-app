@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import styled from 'styled-components';
-
+// import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Items from '../api/items';
 import ItemForm from './ItemForm';
 import ItemList from './ItemList';
@@ -14,7 +14,7 @@ class App extends Component {
       <div>
         <Header>
           <HeaderContent>
-            <div>Logo</div>
+            <LogoStyle>$+$$=$$$</LogoStyle>
             <div>
               <AccountsUI />
             </div>
@@ -28,11 +28,17 @@ class App extends Component {
           <div>
             <ItemForm />
           </div>
+          {/* <ReactCSSTransitionGroup
+            transitionName="itemAnimate"
+            transitionEnterTimeout={600}
+            transitionLeaveTimeout={400}
+          > */}
           <ItemGrid>
             {this.props.items.map(item => {
               return <ItemList item={item} key={item._id} />;
             })}
           </ItemGrid>
+          {/* </ReactCSSTransitionGroup> */}
         </Body>
       </div>
     );
@@ -92,4 +98,11 @@ const ItemGrid = styled.div`
 
 const MBA = styled.h1`
   color: #ffffff;
+  font-family: 'Passion One', cursive;
+`;
+
+const LogoStyle = styled.div`
+  font-family: 'Passion One', cursive;
+  color: #ffffff;
+  font-size: 30px;
 `;

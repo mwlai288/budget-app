@@ -14,6 +14,7 @@ if (Meteor.isServer) {
 
   Meteor.methods({
     addGoods(itemInput, priceInput, amountAdded) {
+      check(itemInput, String);
       if (!Meteor.userId()) {
         throw new Meteor.Error('not authorized.');
       }
