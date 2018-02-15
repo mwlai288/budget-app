@@ -3,19 +3,15 @@ import styled from 'styled-components';
 
 class ItemList extends Component {
   checkBox = () => {
-    Meteor.call(
-      'toggleComplete',
-      this.props.item._id,
-      this.props.item.complete
-    );
+    Meteor.call('toggleComplete', this.props.item);
   };
   deleteItem = () => {
-    Meteor.call('deleteItem', this.props.item._id);
+    Meteor.call('deleteItem', this.props.item);
   };
   addMoney = e => {
     e.preventDefault();
     const amountAdded = this.refs.saved.value.trim();
-    Meteor.call('addMoneyToBudget', this.props.item._id, amountAdded);
+    Meteor.call('addMoneyToBudget', this.props.item, amountAdded);
   };
   render() {
     return (
@@ -46,5 +42,9 @@ class ItemList extends Component {
 export default ItemList;
 
 const ItemBorder = styled.div`
-  border: 1px solid black;
+  margin-top: 20px;
+  /* border: 1px solid black; */
+  -moz-box-shadow: 3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow: 2px 0 15px -4px;
 `;

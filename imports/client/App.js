@@ -6,6 +6,7 @@ import Items from '../api/items';
 import ItemForm from './ItemForm';
 import ItemList from './ItemList';
 import About from './About';
+import AccountsUI from './AccountsUI';
 
 class App extends Component {
   render() {
@@ -14,7 +15,9 @@ class App extends Component {
         <Header>
           <HeaderContent>
             <div>Logo</div>
-            <div>User SignUP/IN</div>
+            <div>
+              <AccountsUI />
+            </div>
             <MBA>My Budget App</MBA>
           </HeaderContent>
         </Header>
@@ -37,7 +40,7 @@ class App extends Component {
 }
 
 export default withTracker(() => {
-  let itemsSub = Meteor.subscribe('allItems');
+  let itemsSub = Meteor.subscribe('userItems');
   return {
     items: Items.find({}).fetch()
   };
@@ -57,6 +60,11 @@ const HeaderContent = styled.header`
   height: 100%;
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 295px) {
+    display: flex;
+    flex-direction: column;
+    height: 100px;
+  }
 `;
 
 const Body = styled.div`

@@ -8,7 +8,7 @@ class ItemForm extends Component {
     const itemInput = this.refs.goods.value.trim();
     const priceInput = this.refs.price.value.trim();
     const amountAdded = this.refs.saved.value.trim();
-    if (itemInput !== '' && priceInput !== '') {
+    if (itemInput !== '' && priceInput !== '' && amountAdded !== '') {
       Meteor.call('addGoods', itemInput, priceInput, amountAdded, () => {
         this.refs.goods.value = '';
         this.refs.price.value = '';
@@ -40,4 +40,7 @@ const FormStyle = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  -moz-box-shadow: 3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow: 3px 3px 5px 6px #808000;
 `;

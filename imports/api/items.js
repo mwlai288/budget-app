@@ -8,32 +8,50 @@ if (Meteor.isServer) {
     return Items.find();
   });
 
+  Meteor.publish('userItems', function() {
+    return Items.find({ user: this.userId });
+  });
+
   Meteor.methods({
     addGoods(itemInput, priceInput, amountAdded) {
+      if (!Meteor.userId()) {
+        throw new Meteor.Error('not authorized.');
+      }
       Items.insert({
         goods: itemInput,
         price: parseInt(priceInput),
         amountAdded: parseInt(amountAdded),
         amountLeft: parseInt(priceInput) - parseInt(amountAdded),
         complete: false,
-        createdAt: new Date()
+        createdAt: new Date(),
+        user: Meteor.userId()
       });
     },
-    toggleComplete(id, status) {
-      Items.update(id, {
-        $set: { complete: !status }
+    toggleComplete(item) {
+      if (Meteor.userId() !== item.user) {
+        throw new Meteor.Error('not authorized.');
+      }
+      Items.update(item._id, {
+        $set: { complete: !item.complete }
       });
     },
-    addMoneyToBudget(id, amountAdded) {
-      Items.update(id, {
+
+    addMoneyToBudget(item, amountAdded) {
+      if (Meteor.userId() !== item.user) {
+        throw new Meteor.Error('not authorized.');
+      }
+      Items.update(item._id, {
         $inc: {
           amountLeft: -parseInt(amountAdded),
           amountAdded: parseInt(amountAdded)
         }
       });
     },
-    deleteItem(id) {
-      Items.remove(id);
+    deleteItem(item) {
+      if (Meteor.userId() !== item.user) {
+        throw new Meteor.Error('not authorized.');
+      }
+      Items.remove(item._id);
     }
   });
 }
