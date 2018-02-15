@@ -40,6 +40,7 @@ class App extends Component {
           </ItemGrid>
           {/* </ReactCSSTransitionGroup> */}
         </Body>
+        <Footer>Copyright Will Lai 2018</Footer>
       </div>
     );
   }
@@ -58,6 +59,13 @@ const Header = styled.div`
   width: 100%;
   height: 40px;
   top: 0;
+`;
+
+const Footer = styled.span`
+  display: flex;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
 `;
 const HeaderContent = styled.header`
   max-width: 900px;
